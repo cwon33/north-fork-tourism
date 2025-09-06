@@ -7,7 +7,7 @@ import theme from '@utils/theme';
 import { router } from 'expo-router';
 import { getAuth } from 'firebase/auth';
 import { auth } from 'FirebaseConfig';
-import { MinusIcon, PlusIcon } from 'lucide-react-native';
+import { MinusIcon } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
 const AuthHomeScreen = () => {
@@ -15,7 +15,7 @@ const AuthHomeScreen = () => {
     if (!user) router.replace('/(guest)');
   });
 
-  const { value, increment, decrement } = useExampleStore();
+  const { value, decrement } = useExampleStore();
   const { setToast } = useToastStore();
 
   return (
@@ -31,9 +31,6 @@ const AuthHomeScreen = () => {
         Authenticated Home
       </Text>
       <Text>{value}</Text>
-      <Button asChild onPress={() => increment()}>
-        <PlusIcon color={theme.black} />
-      </Button>
       <Button asChild onPress={() => decrement()}>
         <MinusIcon color={theme.black} />
       </Button>

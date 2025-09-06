@@ -3295,14 +3295,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@react-native-async-storage/async-storage@npm:2.1.2"
+"@react-native-async-storage/async-storage@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@react-native-async-storage/async-storage@npm:2.2.0"
   dependencies:
     merge-options: "npm:^3.0.4"
   peerDependencies:
     react-native: ^0.0.0-0 || >=0.65 <1.0
-  checksum: 10c0/8f3d6ff1b32ef8705c5c8be8248988cfbfd571c0e8142b8aef15429f13ddc9a018792b4be837215f6592c76b9cd99a931d4f0ab4182eebd8bddede458d484053
+  checksum: 10c0/84900eba46a40225c4ac9bf5eb58885200dc1e789d873ecda46a2a213870cc7110536ed1fd7a74b873071f3603c093958fbd84c635d6f6d4f94bfbb616ffa0ef
   languageName: node
   linkType: hard
 
@@ -4591,17 +4591,6 @@ __metadata:
     axios: ^0.x || ^1.0.0
     zod: ^3.x
   checksum: 10c0/0a792779fa438ccc214cca09beafb29553737b8208b3819dfe3df7ab50fa01345ec60870bdb8e47e758e2b63d1984052ac502e7a5d50af5f5ef620717dfee780
-  languageName: node
-  linkType: hard
-
-"@zodios/react@npm:^10.4.5":
-  version: 10.4.5
-  resolution: "@zodios/react@npm:10.4.5"
-  peerDependencies:
-    "@tanstack/react-query": 4.x
-    "@zodios/core": ">=10.2.0 <11.0.0"
-    react: ">=16.8.0"
-  checksum: 10c0/782f7ad907c6737aa28c0aac53743239eb3a09f0e3921217195a612e80b7d53809e88eca464665748128613861e06a92c5130c1971901e56057f9aa05f6e56e4
   languageName: node
   linkType: hard
 
@@ -13322,7 +13311,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.3.0"
     "@commitlint/config-conventional": "npm:^19.2.2"
     "@eslint/js": "npm:^9.2.0"
-    "@react-native-async-storage/async-storage": "npm:2.1.2"
+    "@react-native-async-storage/async-storage": "npm:^2.2.0"
     "@react-native-firebase/app": "npm:^23.1.2"
     "@react-native-firebase/firestore": "npm:^23.1.2"
     "@sentry/react-native": "npm:~6.14.0"
@@ -13332,7 +13321,6 @@ __metadata:
     "@types/react": "npm:~19.0.10"
     "@types/react-dom": "npm:~18.2.25"
     "@zodios/core": "npm:^10.9.6"
-    "@zodios/react": "npm:^10.4.5"
     axios: "npm:^1.6.8"
     clsx: "npm:^2.1.0"
     eslint: "npm:8"

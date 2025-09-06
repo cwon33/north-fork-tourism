@@ -1,15 +1,20 @@
 import Button from '@components/ui/button';
 import { Loading } from '@components/ui/loading';
 import { cn } from '@utils/cn';
-import Routes from '@utils/routes';
 import { useExampleStore } from '@utils/stores/example-store';
 import useToastStore from '@utils/stores/toast-store';
 import theme from '@utils/theme';
 import { router } from 'expo-router';
+import { getAuth } from 'firebase/auth';
+import { auth } from 'FirebaseConfig';
 import { MinusIcon, PlusIcon } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
 const AuthHomeScreen = () => {
+  getAuth().onAuthStateChanged((user) => {
+    if (!user) router.replace('/(guest)');
+  });
+
   const { value, increment, decrement } = useExampleStore();
   const { setToast } = useToastStore();
 
@@ -32,9 +37,7 @@ const AuthHomeScreen = () => {
       <Button asChild onPress={() => decrement()}>
         <MinusIcon color={theme.black} />
       </Button>
-      <Button onPress={() => router.navigate(Routes.guest.index)}>
-        Logout
-      </Button>
+      <Button onPress={() => auth.signOut()}>Logout</Button>
       <Loading />
       <Button onPress={() => setToast({ type: 'success', message: 'Hello!' })}>
         Show Toast

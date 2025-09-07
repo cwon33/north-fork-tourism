@@ -11,6 +11,10 @@ const fontsToLoad = {
   semibold: require('@assets/fonts/Inter-SemiBold.ttf'),
   extrabold: require('@assets/fonts/Inter-ExtraBold.ttf'),
   extralight: require('@assets/fonts/Inter-ExtraLight.ttf'),
+
+  //Monserrat
+  Montserrat_Italic: require('@assets/fonts/Montserrat-Italic-VariableFont_wght.ttf'),
+  Montserrat: require('@assets/fonts/Montserrat-VariableFont_wght.ttf'),
 } as Record<string, FontSource>;
 
 export default function useCustomFonts({

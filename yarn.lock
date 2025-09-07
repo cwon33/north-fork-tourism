@@ -10637,14 +10637,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react-native@npm:^0.368.0":
-  version: 0.368.0
-  resolution: "lucide-react-native@npm:0.368.0"
+"lucide-react-native@npm:^0.542.0":
+  version: 0.542.0
+  resolution: "lucide-react-native@npm:0.542.0"
   peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-native: "*"
     react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
-  checksum: 10c0/83b3a387c0fb25c44009c8087bffae6d1bc3468b1a9ad3e49cb5182a353308798f98b6550590b774e164cf3b4861d6558eee7d4faba6ae617c9f00934cbb94ae
+  checksum: 10c0/cf7d7f72e68cb5dc96e7ff8cfbc80d5a804071dbea3c3d5dba16039f33e020aa23cc1180d38382bff551a9fd2c8510451ea428c6c727b6fb1c892b82bba6aa3f
   languageName: node
   linkType: hard
 
@@ -13340,7 +13340,7 @@ __metadata:
     i18next: "npm:^23.10.1"
     intl-pluralrules: "npm:^2.0.1"
     lottie-react-native: "npm:7.2.2"
-    lucide-react-native: "npm:^0.368.0"
+    lucide-react-native: "npm:^0.542.0"
     nativewind: "npm:^4.1.23"
     openapi-zod-client: "npm:^1.18.1"
     orval: "npm:^7.10.0"

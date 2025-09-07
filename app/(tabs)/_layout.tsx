@@ -7,7 +7,6 @@ import {
   User,
 } from 'lucide-react-native';
 import { Platform } from 'react-native';
-
 /**
  * Bottom tab navigator for the guest flow.
  * If you also want these tabs after login, you can add the same screen
@@ -18,13 +17,20 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarInactiveTintColor: '#EAEAEA',
         tabBarStyle: {
+          backgroundColor: "#00638D",
           height: Platform.OS === 'ios' ? 90 : 70,
           paddingTop: 6,
           paddingBottom: Platform.OS === 'ios' ? 24 : 12,
+          paddingHorizontal: 12,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 10,
+          fontFamily: 'Montserrat',
+        },
+        tabBarItemStyle: {
+          marginHorizontal: 10,
         },
       }}
       initialRouteName="discover">
@@ -58,7 +64,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="promo"
         options={{
-          title: 'Promo',
+          title: 'Promotions',
           tabBarIcon: ({ color, size }) => (
             <Percent color={color} size={size} />
           ),

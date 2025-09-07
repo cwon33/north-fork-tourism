@@ -15,6 +15,11 @@ const fontsToLoad = {
   //Monserrat
   Montserrat_Italic: require('@assets/fonts/Montserrat-Italic-VariableFont_wght.ttf'),
   Montserrat: require('@assets/fonts/Montserrat-VariableFont_wght.ttf'),
+
+  //Libre Baskerville
+  LibreBaskerville_Italic: require('@assets/fonts/LibreBaskerville-Italic.ttf'),
+  LibreBaskerville_Bold: require('@assets/fonts/LibreBaskerville-Bold.ttf'),
+  LibreBaskerville: require('@assets/fonts/LibreBaskerville-Regular.ttf'),
 } as Record<string, FontSource>;
 
 export default function useCustomFonts({

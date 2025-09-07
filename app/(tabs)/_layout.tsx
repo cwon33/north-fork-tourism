@@ -3,7 +3,7 @@ import {
   CalendarDays,
   Compass,
   Map as MapIcon,
-  Percent,
+  Tag,
   User,
 } from 'lucide-react-native';
 import { Platform } from 'react-native';
@@ -18,6 +18,7 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarInactiveTintColor: '#EAEAEA',
+        tabBarActiveTintColor: '#EAEAEA',
         tabBarStyle: {
           backgroundColor: "#00638D",
           height: Platform.OS === 'ios' ? 90 : 70,
@@ -38,8 +39,11 @@ export default function TabsLayout() {
         name="discover"
         options={{
           title: 'Discover',
-          tabBarIcon: ({ color, size }) => (
-            <Compass color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) =>
+            focused ? (
+            <Compass color="#ffffffff" fill="#ffffffa3" size={size} />
+          ) : (
+            <Compass color={color} size={size}/>
           ),
         }}
       />
@@ -47,7 +51,10 @@ export default function TabsLayout() {
         name="map"
         options={{
           title: 'Map',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size, focused }) =>
+          focused ? (
+            <MapIcon color="#ffffffff" fill="#ffffffa3" size={size} />
+          ) : (
             <MapIcon color={color} size={size} />
           ),
         }}
@@ -56,7 +63,10 @@ export default function TabsLayout() {
         name="events"
         options={{
           title: 'Events',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size, focused }) =>
+          focused ? (
+            <CalendarDays color="#ffffffff" fill="#ffffffa3" size={size} />
+          ) : (
             <CalendarDays color={color} size={size} />
           ),
         }}
@@ -64,9 +74,12 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="promo"
         options={{
-          title: 'Promotions',
-          tabBarIcon: ({ color, size }) => (
-            <Percent color={color} size={size} />
+          title: 'Promo',
+          tabBarIcon: ({ color, size, focused }) =>
+          focused ? (
+            <Tag color="#ffffffff" fill="#ffffffa3" size={size} />
+          ) : (
+            <Tag color={color} size={size} />
           ),
         }}
       />
@@ -74,7 +87,11 @@ export default function TabsLayout() {
         name="account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
+          tabBarIcon: ({ color, size, focused }) =>
+          focused ? (
+            <Tag color="#ffffffff" fill="#ffffffa3" size={size} />
+          ) : (
+          <User color={color} size={size} />),
         }}
       />
     </Tabs>

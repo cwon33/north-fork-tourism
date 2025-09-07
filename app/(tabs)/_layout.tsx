@@ -19,7 +19,7 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarInactiveTintColor: '#EAEAEA',
         tabBarStyle: {
-          backgroundColor: "#00638D",
+          backgroundColor: '#00638D',
           height: Platform.OS === 'ios' ? 90 : 70,
           paddingTop: 6,
           paddingBottom: Platform.OS === 'ios' ? 24 : 12,

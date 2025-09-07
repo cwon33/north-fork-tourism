@@ -3333,6 +3333,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-picker/picker@npm:^2.11.1":
+  version: 2.11.1
+  resolution: "@react-native-picker/picker@npm:2.11.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/d2e9aeb32ae80f2ab56fa025f1afd6d8ff8051e7078bfd17c6794ff0cc1538d4a2f548098826eb652e6cb64d998070b0111777c78de4dcb468cb71e7e4d93097
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.79.4":
   version: 0.79.4
   resolution: "@react-native/assets-registry@npm:0.79.4"
@@ -13314,6 +13324,7 @@ __metadata:
     "@react-native-async-storage/async-storage": "npm:^2.2.0"
     "@react-native-firebase/app": "npm:^23.1.2"
     "@react-native-firebase/firestore": "npm:^23.1.2"
+    "@react-native-picker/picker": "npm:^2.11.1"
     "@sentry/react-native": "npm:~6.14.0"
     "@t3-oss/env-core": "npm:^0.13.8"
     "@tanstack/react-query": "npm:^5.29.2"

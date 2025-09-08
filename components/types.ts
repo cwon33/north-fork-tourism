@@ -26,3 +26,23 @@ export type Business = {
   createdAt?: any;
   updatedAt?: any;
 };
+
+export type Events = {
+    id?: string;
+    business: string;
+    businessId: string;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    address?: {
+      street?: string;
+      city?: string;
+      state?: string;
+      zip?: string;
+    };
+    isActive: boolean;
+    startAt?: string;
+    endAt?: string;
+    createdAt?: any;
+    updatedAt?: any;
+  };

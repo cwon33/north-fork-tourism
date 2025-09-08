@@ -1,4 +1,3 @@
-// app/(authenticated)/BusinessAdminScreen.tsx (or wherever you want)
 import {
   addDoc,
   collection,
@@ -14,6 +13,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -21,29 +22,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { db } from '../../FirebaseConfig'; // keep your existing import
-
-type LatLng = { lat: number; lng: number };
-type Business = {
-  id?: string;
-  name: string;
-  briefDesc?: string;
-  logoUrl?: string;
-  photos?: string[];
-  fullDesc?: string;
-  promotions?: string[];
-  website?: string;
-  location?: LatLng;
-  contact?: {
-    phone?: string;
-    email?: string;
-    social?: { instagram?: string; facebook?: string; tiktok?: string };
-  };
-  categories?: string[];
-  isActive: boolean;
-  createdAt?: any;
-  updatedAt?: any;
-};
+import { db } from '../../FirebaseConfig';
+import { Business } from '../../components/types';
 
 const parseCsv = (raw: string) =>
   raw
@@ -55,20 +35,29 @@ const num = (s?: string) => (s && isFinite(+s) ? +s : undefined);
 export default function BusinessAdminScreen() {
   const businessesRef = useMemo(() => collection(db, 'businesses'), []);
   const [items, setItems] = useState<Business[]>([]);
+
+  // form state
   const [name, setName] = useState('');
-  const [briefDesc, setBriefDesc] = useState('');
-  const [logoUrl, setLogoUrl] = useState('');
-  const [website, setWebsite] = useState('');
-  const [categories, setCategories] = useState(''); // CSV in UI
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [iconUrl, setIconUrl] = useState('');
+  const [bannerUrl, setBannerUrl] = useState('');
+  const [photosCsv, setPhotosCsv] = useState('');
+  const [promosCsv, setPromosCsv] = useState('');
+  const [eventsCsv, setEventsCsv] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [stateUS, setStateUS] = useState('');
+  const [zip, setZip] = useState('');
   const [phone, setPhone] = useState('');
-  const [instagram, setInstagram] = useState('');
+  const [website, setWebsite] = useState('');
+  const [mapsUrl, setMapsUrl] = useState('');
 
   useEffect(() => {
     fetchBusinesses();
   }, []);
-
   const fetchBusinesses = async () => {
     const q = query(businessesRef, orderBy('name'));
     const snap = await getDocs(q);
@@ -85,36 +74,59 @@ export default function BusinessAdminScreen() {
       Alert.alert('Name is required');
       return;
     }
-    await addDoc(businessesRef, {
+    const latNum = num(lat);
+    const lngNum = num(lng);
+    const payload: Business = {
       name: name.trim(),
-      briefDesc: briefDesc.trim() || '',
-      logoUrl: logoUrl.trim() || '',
-      website: website.trim() || '',
-      categories: parseCsv(categories),
+      description: description.trim() || undefined,
+      category: category.trim() || undefined,
+      iconUrl: iconUrl.trim() || undefined,
+      bannerUrl: bannerUrl.trim() || undefined,
+      photos: parseCsv(photosCsv),
+      promotions: parseCsv(promosCsv),
+      events: parseCsv(eventsCsv),
       location:
-        num(lat) !== undefined && num(lng) !== undefined
-          ? { lat: num(lat), lng: num(lng) }
-          : null,
+        latNum !== undefined && lngNum !== undefined
+          ? { lat: latNum, lng: lngNum }
+          : undefined,
+      address:
+        street || city || stateUS || zip
+          ? {
+              street: street || undefined,
+              city: city || undefined,
+              state: stateUS || undefined,
+              zip: zip || undefined,
+            }
+          : undefined,
       contact: {
         phone: phone.trim() || undefined,
-        social: { instagram: instagram.trim() || undefined },
+        website: website.trim() || undefined,
+        mapsUrl: mapsUrl.trim() || undefined,
       },
       isActive: true,
-      photos: [],
-      promotions: [],
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-    } as Business);
-    // reset inputs
+    };
+    await addDoc(businessesRef, payload as any);
+
+    // reset
     setName('');
-    setBriefDesc('');
-    setLogoUrl('');
-    setWebsite('');
-    setCategories('');
+    setDescription('');
+    setCategory('');
+    setIconUrl('');
+    setBannerUrl('');
+    setPhotosCsv('');
+    setPromosCsv('');
+    setEventsCsv('');
     setLat('');
     setLng('');
+    setStreet('');
+    setCity('');
+    setStateUS('');
+    setZip('');
     setPhone('');
-    setInstagram('');
+    setWebsite('');
+    setMapsUrl('');
     fetchBusinesses();
   };
 
@@ -125,117 +137,175 @@ export default function BusinessAdminScreen() {
     });
     fetchBusinesses();
   };
-
   const updateField = async (id: string, patch: Partial<Business>) => {
     await updateDoc(doc(db, 'businesses', id), {
       ...patch,
       updatedAt: serverTimestamp(),
-    });
+    } as any);
     fetchBusinesses();
   };
-
   const removeBusiness = async (id: string) => {
     await deleteDoc(doc(db, 'businesses', id));
     fetchBusinesses();
   };
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.mainTitle}>Businesses (Admin)</Text>
+  // Stable header element (no ScrollView here, no inline function)
+  const header = (
+    <View style={{ padding: 20, gap: 12 }}>
+      <Text style={styles.mainTitle}>Businesses (Admin)</Text>
+      <View style={styles.form}>
+        <TextInput
+          placeholder="Name *"
+          value={name}
+          onChangeText={setName}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Description"
+          value={description}
+          onChangeText={setDescription}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Category (e.g., winery)"
+          value={category}
+          onChangeText={setCategory}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Icon URL"
+          value={iconUrl}
+          onChangeText={setIconUrl}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Banner URL"
+          value={bannerUrl}
+          onChangeText={setBannerUrl}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Photos (CSV of URLs)"
+          value={photosCsv}
+          onChangeText={setPhotosCsv}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Promotions (CSV of ids/titles)"
+          value={promosCsv}
+          onChangeText={setPromosCsv}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Events (CSV of ids/titles)"
+          value={eventsCsv}
+          onChangeText={setEventsCsv}
+          style={styles.input}
+        />
 
-        {/* Create form – keep simple for now */}
-        <View style={styles.form}>
+        <View style={{ flexDirection: 'row', gap: 10 }}>
           <TextInput
-            placeholder="Name *"
-            value={name}
-            onChangeText={setName}
-            style={styles.input}
+            placeholder="Lat"
+            value={lat}
+            onChangeText={setLat}
+            style={[styles.input, { flex: 1 }]}
+            keyboardType="numeric"
           />
           <TextInput
-            placeholder="Brief description"
-            value={briefDesc}
-            onChangeText={setBriefDesc}
-            style={styles.input}
+            placeholder="Lng"
+            value={lng}
+            onChangeText={setLng}
+            style={[styles.input, { flex: 1 }]}
+            keyboardType="numeric"
           />
-          <TextInput
-            placeholder="Logo URL"
-            value={logoUrl}
-            onChangeText={setLogoUrl}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Website"
-            value={website}
-            onChangeText={setWebsite}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Categories (csv)"
-            value={categories}
-            onChangeText={setCategories}
-            style={styles.input}
-          />
-          <View style={{ flexDirection: 'row', gap: 10 }}>
-            <TextInput
-              placeholder="Lat"
-              value={lat}
-              onChangeText={setLat}
-              style={[styles.input, { flex: 1 }]}
-              keyboardType="numeric"
-            />
-            <TextInput
-              placeholder="Lng"
-              value={lng}
-              onChangeText={setLng}
-              style={[styles.input, { flex: 1 }]}
-              keyboardType="numeric"
-            />
-          </View>
-          <TextInput
-            placeholder="Phone"
-            value={phone}
-            onChangeText={setPhone}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Instagram"
-            value={instagram}
-            onChangeText={setInstagram}
-            style={styles.input}
-          />
-          <TouchableOpacity style={styles.addButton} onPress={addBusiness}>
-            <Text style={styles.buttonText}>Add Business</Text>
-          </TouchableOpacity>
         </View>
 
+        <TextInput
+          placeholder="Street"
+          value={street}
+          onChangeText={setStreet}
+          style={styles.input}
+        />
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <TextInput
+            placeholder="City"
+            value={city}
+            onChangeText={setCity}
+            style={[styles.input, { flex: 1 }]}
+          />
+          <TextInput
+            placeholder="State"
+            value={stateUS}
+            onChangeText={setStateUS}
+            style={[styles.input, { flex: 1 }]}
+          />
+          <TextInput
+            placeholder="Zip"
+            value={zip}
+            onChangeText={setZip}
+            style={[styles.input, { flex: 1 }]}
+          />
+        </View>
+
+        <TextInput
+          placeholder="Phone"
+          value={phone}
+          onChangeText={setPhone}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Website"
+          value={website}
+          onChangeText={setWebsite}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Maps URL"
+          value={mapsUrl}
+          onChangeText={setMapsUrl}
+          style={styles.input}
+        />
+
+        <TouchableOpacity style={styles.addButton} onPress={addBusiness}>
+          <Text style={styles.buttonText}>Add Business</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
         <FlatList
+          style={{ flex: 1 }}
           data={items}
           keyExtractor={(b) => b.id!}
-          contentContainerStyle={{ paddingTop: 10 }}
           renderItem={({ item }) => (
             <View style={styles.row}>
               <View style={{ flex: 1 }}>
                 <Text style={styles.rowTitle}>{item.name}</Text>
-                {!!item.briefDesc && (
-                  <Text style={styles.rowSubtitle}>{item.briefDesc}</Text>
+                {!!item.category && (
+                  <Text style={styles.badge}>{item.category}</Text>
+                )}
+                {!!item.description && (
+                  <Text style={styles.rowSubtitle}>{item.description}</Text>
                 )}
                 <Text style={styles.meta}>
                   {item.isActive ? 'Active' : 'Inactive'} •{' '}
-                  {item.website || 'no site'}
+                  {item.contact?.website || 'no site'}
                 </Text>
-
-                {/* Quick inline edit for briefDesc */}
                 <TextInput
-                  placeholder="Edit brief description"
-                  defaultValue={item.briefDesc}
+                  placeholder="Edit description"
+                  defaultValue={item.description}
                   onEndEditing={(e) =>
-                    updateField(item.id!, { briefDesc: e.nativeEvent.text })
+                    updateField(item.id!, { description: e.nativeEvent.text })
                   }
                   style={[styles.input, { marginTop: 8 }]}
                 />
               </View>
-
               <View style={{ alignItems: 'flex-end', gap: 8 }}>
                 <TouchableOpacity
                   style={styles.smallBtn}
@@ -252,17 +322,31 @@ export default function BusinessAdminScreen() {
               </View>
             </View>
           )}
+          ListHeaderComponent={header} // ✅ single scroll container
+          ListEmptyComponent={
+            <Text
+              style={{
+                paddingHorizontal: 20,
+                paddingBottom: 20,
+                color: '#666',
+              }}>
+              No businesses yet.
+            </Text>
+          }
+          contentContainerStyle={{ paddingBottom: 40 }}
+          keyboardDismissMode="none" // ✅ don't auto-dismiss on tiny scrolls
+          keyboardShouldPersistTaps="handled" // ✅ taps on inputs don't dismiss
+          removeClippedSubviews={false} // ✅ keep inputs from being detached
         />
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1 },
-  container: { flex: 1, padding: 20 },
-  mainTitle: { fontSize: 24, fontWeight: '700', marginBottom: 12 },
-  form: { gap: 10, marginBottom: 12 },
+  mainTitle: { fontSize: 24, fontWeight: '700' },
+  form: { gap: 10 },
   input: {
     height: 40,
     borderColor: '#ccc',
@@ -281,13 +365,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
   },
-  rowTitle: { fontSize: 16, fontWeight: '600' },
-  rowSubtitle: { color: '#555' },
+  rowTitle: { fontSize: 16, fontWeight: '700' },
+  rowSubtitle: { color: '#555', marginTop: 2 },
   meta: { color: '#777', marginTop: 4 },
+  badge: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#EEF2FF',
+    color: '#4338CA',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 6,
+    marginTop: 4,
+    overflow: 'hidden',
+    fontSize: 12,
+    fontWeight: '600',
+  },
   smallBtn: {
     paddingVertical: 6,
     paddingHorizontal: 10,

@@ -45,7 +45,7 @@ export default function EventCard({
         <Text
           style={{
             fontFamily: 'LibreBaskerville-Bold',
-            fontSize: 20,
+            fontSize: 16,
             color: '#00638D',
           }}
           numberOfLines={2}>
@@ -57,7 +57,7 @@ export default function EventCard({
           <Text
             style={{
               fontFamily: 'Montserrat_Bold',
-              fontSize: 14,
+              fontSize: 12,
               color: '#202020',
             }}>
             {company}

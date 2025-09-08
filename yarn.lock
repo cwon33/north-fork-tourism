@@ -3333,6 +3333,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-picker/picker@npm:^2.11.1":
+  version: 2.11.1
+  resolution: "@react-native-picker/picker@npm:2.11.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/d2e9aeb32ae80f2ab56fa025f1afd6d8ff8051e7078bfd17c6794ff0cc1538d4a2f548098826eb652e6cb64d998070b0111777c78de4dcb468cb71e7e4d93097
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:0.79.4":
   version: 0.79.4
   resolution: "@react-native/assets-registry@npm:0.79.4"
@@ -7479,6 +7489,26 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10c0/aefcf1a1a413f11bcd8b1a4948ff725a864710a517cf15d6fd17c80b5b261595502dd2afa97044cb32d0a65371d6104c69df872c4d8cf4e24e8129e3073f5547
+  languageName: node
+  linkType: hard
+
+"expo-image-loader@npm:~5.1.0":
+  version: 5.1.0
+  resolution: "expo-image-loader@npm:5.1.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/2897a2c3623f752cc277677b170ca9b3db826439641ccc93dcc3a94ece76dcbf084ecc108eddfebb42c34bcb339ef00996726995112c99561f262696c3e23300
+  languageName: node
+  linkType: hard
+
+"expo-image-picker@npm:^16.1.4":
+  version: 16.1.4
+  resolution: "expo-image-picker@npm:16.1.4"
+  dependencies:
+    expo-image-loader: "npm:~5.1.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/7e27458a48140cea2864564db40ff102525302ca60e9526838ae265523dba8b1d9ceea3a2ac94c1eaece78f4cd1ded0f1a2391517e61a3fd8a6f17b06e337293
   languageName: node
   linkType: hard
 
@@ -13314,6 +13344,7 @@ __metadata:
     "@react-native-async-storage/async-storage": "npm:^2.2.0"
     "@react-native-firebase/app": "npm:^23.1.2"
     "@react-native-firebase/firestore": "npm:^23.1.2"
+    "@react-native-picker/picker": "npm:^2.11.1"
     "@sentry/react-native": "npm:~6.14.0"
     "@t3-oss/env-core": "npm:^0.13.8"
     "@tanstack/react-query": "npm:^5.29.2"
@@ -13330,6 +13361,7 @@ __metadata:
     expo: "npm:^53.0.13"
     expo-constants: "npm:~17.1.6"
     expo-font: "npm:~13.3.1"
+    expo-image-picker: "npm:^16.1.4"
     expo-linear-gradient: "npm:~14.1.5"
     expo-linking: "npm:~7.1.5"
     expo-localization: "npm:~16.1.5"

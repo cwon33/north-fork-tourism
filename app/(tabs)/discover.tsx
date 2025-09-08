@@ -134,31 +134,25 @@ export default function DiscoverScreen() {
 
   const headerBar = useMemo(
     () => (
-      <View className="bg-white pb-2 pt-16">
+      <View className="bg-[#00638D] pb-1 pt-20">
         <FlatList
           data={CATEGORIES}
           horizontal
           keyExtractor={(c) => c}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 16 }}
-          ItemSeparatorComponent={() => <View className="w-2" />}
+          ItemSeparatorComponent={() => <View className="w-1" />}
           renderItem={({ item: cat }) => (
             <TouchableOpacity
               onPress={() => setSelectedCategory(cat)}
               accessibilityRole="button"
               accessibilityState={{ selected: selectedCategory === cat }}
-              className={[
-                'rounded-full border px-4 py-2',
-                selectedCategory === cat
-                  ? 'border-[#00638D] bg-[#00638D]'
-                  : 'border-neutral-200 bg-white',
-              ].join(' ')}>
+              className="px-2 py-2"> 
               <Text
-                className={
-                  selectedCategory === cat
-                    ? 'font-semibold text-white'
-                    : 'text-neutral-800'
-                }>
+                className={`text-white text-[14px] ${selectedCategory === cat ? 'underline' : ''}`}
+                style={{
+                  fontFamily: 'LibreBaskerville-Bold',
+                }}>
                 {cat}
               </Text>
             </TouchableOpacity>
@@ -184,7 +178,10 @@ export default function DiscoverScreen() {
           data={businesses}
           keyExtractor={keyExtractor}
           renderItem={renderCard}
-          contentContainerStyle={{ paddingBottom: 40 }}
+          contentContainerStyle={{ 
+            paddingBottom: 40,
+            paddingTop: 8,
+            alignItems: 'center'}}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }

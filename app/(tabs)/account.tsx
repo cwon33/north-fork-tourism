@@ -39,7 +39,7 @@ const AccountScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={{fontFamily: 'LibreBaskerville-Bold', fontSize: 32, color: '#00638D',}}>Login</Text>
       <TextInput
         style={styles.textInput}
         placeholder="email"
@@ -54,10 +54,10 @@ const AccountScreen = () => {
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={signIn}>
-        <Text style={styles.text}>Login</Text>
+        <Text style={{fontFamily: 'Montserrat', fontSize: 20, color: '#ffffffff'}}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={signUp}>
-        <Text style={styles.text}>Make Account</Text>
+        <Text style={{fontFamily: 'Montserrat', fontSize: 20, color: '#ffffffff'}}>Make Account</Text>
       </TouchableOpacity>
     </SafeAreaView>
     // <View className="flex-1 items-center justify-center bg-white">
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 28, // A bit larger for a more striking appearance
     fontWeight: '800', // Extra bold for emphasis
     marginBottom: 40, // Increased space for a more airy, open feel
-    color: '#1A237E', // A deep indigo for a sophisticated, modern look
+    color: '#00638D', // A deep indigo for a sophisticated, modern look
   },
   textInput: {
     height: 50, // Standard height for elegance and simplicity
@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
   button: {
     width: '90%',
     marginVertical: 15,
-    backgroundColor: '#5C6BC0', // A lighter indigo to complement the title color
+    backgroundColor: '#037cb0ff', // A lighter indigo to complement the title color
     padding: 20,
     borderRadius: 15, // Matching rounded corners for consistency
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#5C6BC0', // Shadow color to match the button for a cohesive look
+    shadowColor: '#095576ff', // Shadow color to match the button for a cohesive look
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 5,

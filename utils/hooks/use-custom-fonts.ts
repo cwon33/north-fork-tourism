@@ -15,6 +15,7 @@ const fontsToLoad = {
   //Monserrat
   Montserrat_Italic: require('@assets/fonts/Montserrat-Italic-VariableFont_wght.ttf'),
   Montserrat: require('@assets/fonts/Montserrat-VariableFont_wght.ttf'),
+  Montserrat_Bold: require('@assets/fonts/Montserrat-Bold.ttf'),
 
   //Libre Baskerville
   LibreBaskerville_Italic: require('@assets/fonts/LibreBaskerville-Italic.ttf'),

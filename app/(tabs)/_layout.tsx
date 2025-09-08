@@ -41,10 +41,10 @@ export default function TabsLayout() {
           title: 'Discover',
           tabBarIcon: ({ color, size, focused }) =>
             focused ? (
-            <Compass color="#ffffffff" fill="#ffffffa3" size={size} />
-          ) : (
-            <Compass color={color} size={size}/>
-          ),
+              <Compass color="#ffffffff" fill="#ffffffa3" size={size} />
+            ) : (
+              <Compass color={color} size={size} />
+            ),
         }}
       />
       <Tabs.Screen
@@ -52,11 +52,11 @@ export default function TabsLayout() {
         options={{
           title: 'Map',
           tabBarIcon: ({ color, size, focused }) =>
-          focused ? (
-            <MapIcon color="#ffffffff" fill="#ffffffa3" size={size} />
-          ) : (
-            <MapIcon color={color} size={size} />
-          ),
+            focused ? (
+              <MapIcon color="#ffffffff" fill="#ffffffa3" size={size} />
+            ) : (
+              <MapIcon color={color} size={size} />
+            ),
         }}
       />
       <Tabs.Screen
@@ -64,11 +64,11 @@ export default function TabsLayout() {
         options={{
           title: 'Events',
           tabBarIcon: ({ color, size, focused }) =>
-          focused ? (
-            <CalendarDays color="#ffffffff" fill="#ffffffa3" size={size} />
-          ) : (
-            <CalendarDays color={color} size={size} />
-          ),
+            focused ? (
+              <CalendarDays color="#ffffffff" fill="#ffffffa3" size={size} />
+            ) : (
+              <CalendarDays color={color} size={size} />
+            ),
         }}
       />
       <Tabs.Screen
@@ -76,11 +76,11 @@ export default function TabsLayout() {
         options={{
           title: 'Promo',
           tabBarIcon: ({ color, size, focused }) =>
-          focused ? (
-            <Tag color="#ffffffff" fill="#ffffffa3" size={size} />
-          ) : (
-            <Tag color={color} size={size} />
-          ),
+            focused ? (
+              <Tag color="#ffffffff" fill="#ffffffa3" size={size} />
+            ) : (
+              <Tag color={color} size={size} />
+            ),
         }}
       />
       <Tabs.Screen
@@ -88,10 +88,11 @@ export default function TabsLayout() {
         options={{
           title: 'Account',
           tabBarIcon: ({ color, size, focused }) =>
-          focused ? (
-            <Tag color="#ffffffff" fill="#ffffffa3" size={size} />
-          ) : (
-          <User color={color} size={size} />),
+            focused ? (
+              <User color="#ffffffff" fill="#ffffffa3" size={size} />
+            ) : (
+              <User color={color} size={size} />
+            ),
         }}
       />
     </Tabs>

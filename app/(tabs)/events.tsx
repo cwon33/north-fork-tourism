@@ -26,6 +26,7 @@ import {
 } from 'react-native';
 
 import { Events } from '@components/types';
+import { useRouter } from 'expo-router';
 
 const CATEGORIES = ['Today', 'Upcomming'];
 
@@ -115,17 +116,27 @@ export default function EventsScreen() {
     setSelectedCategory((prev) => prev);
   }, []);
 
+  const router = useRouter();
+
   const renderCard = useCallback(({ item }: ListRenderItemInfo<Events>) => {
     return (
-      <View className="px-4 py-2">
-        <EventCard
-          company={item.business}
-          photoUrl={item.imageUrl ?? ''}
-          eventName={item.title}
-          startTime={item.startAt ?? ''}
-          endTime={item.endAt ?? ''}
-        />
-      </View>
+      <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: '/events/[id]',
+            params: { id: String(item.id) }, // pass only the ID
+          })
+        }>
+        <View className="px-4 py-2">
+          <EventCard
+            company={item.business}
+            photoUrl={item.imageUrl ?? ''}
+            eventName={item.title}
+            startTime={item.startAt ?? ''}
+            endTime={item.endAt ?? ''}
+          />
+        </View>
+      </TouchableOpacity>
     );
   }, []);
 

@@ -1,4 +1,5 @@
 import BusinessCard from '@components/ui/businessCard';
+import { useRouter } from 'expo-router';
 import {
   collection,
   onSnapshot,
@@ -101,17 +102,30 @@ export default function DiscoverScreen() {
     setSelectedCategory((prev) => prev);
   }, []);
 
-  const renderCard = useCallback(({ item }: ListRenderItemInfo<Business>) => {
-    return (
-      <View className="px-4 py-2">
-        <BusinessCard
-          photoUrl={item.iconUrl ?? ''}
-          phoneticName={item.name}
-          description={item.description || ''}
-        />
-      </View>
-    );
-  }, []);
+  const router = useRouter();
+
+  const renderCard = useCallback(
+    ({ item }: ListRenderItemInfo<Business>) => {
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            router.push({
+              pathname: '/business/[id]',
+              params: { id: String(item.id) }, // pass only the ID
+            })
+          }>
+          <View className="px-4 py-2">
+            <BusinessCard
+              photoUrl={item.iconUrl ?? ''}
+              phoneticName={item.name}
+              description={item.description || ''}
+            />
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [router],
+  );
 
   const keyExtractor = useCallback(
     (item: Business, index: number) => item.id || '',

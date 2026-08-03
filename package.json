@@ -3,16 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "infisical run -- expo start -c",
-    "android": "infisical run -- expo start --android",
-    "ios": "infisical run -- expo start --ios",
-    "web": "infisical run -- expo start --web -c",
-    "gen-api": "infisical run --command 'tsx ./scripts/generate-api.ts'",
+    "start": "expo start -c",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web -c",
+    "gen-api": "tsx ./scripts/generate-api.ts",
     "lint": "eslint .",
     "format-check": "prettier --check .",
     "format-fix": "prettier --write .",
-    "prepare": "husky",
-    "eas-build-pre-install": "./scripts/infisical.sh"
+    "prepare": "husky"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
@@ -49,6 +48,7 @@
     "react-i18next": "^14.1.0",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
+    "react-native-paper": "^5.15.3",
     "react-native-reanimated": "~4.1.0",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
